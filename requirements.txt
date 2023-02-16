@@ -1,0 +1,2 @@
+fastapi
+psycopg2-binary
