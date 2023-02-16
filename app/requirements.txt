@@ -1,0 +1,5 @@
+fastapi
+psycopg2-binary
+sqlalchemy
+prometheus_client
+prometheus_fastapi_instrumentator

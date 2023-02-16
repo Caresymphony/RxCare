@@ -14,11 +14,33 @@ services:
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   app:
-    build: .
+    build: ./app
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     volumes:
-      - .:/app
+      - ./app/.:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+  web:
+    build: ./web
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://app:8000
+    depends_on:
+      - app
+  prometheus:
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus/
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "2000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/var/lib/grafana/

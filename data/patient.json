@@ -1,0 +1,19 @@
+{
+  "first_name": "Tom",
+  "last_name": "Banner",
+  "guardian": "John",
+  "gender": "male",
+  "dob": "19691218",
+  "street1": "123 Some Lane",
+  "street2": "Apt. 123",
+  "city": "Los Angeles",
+  "state": "CA",
+  "country": "US",
+  "zip": "94402",
+  "phone": "430-304-3949",
+  "email": "hulkout@hulk.com",
+  "language_preference": "English",
+  "species": "Dog",
+  "viewed_notice_of_privacy_practices": true,
+  "viewed_notice_of_privacy_practices_date": "20220101"
+}
