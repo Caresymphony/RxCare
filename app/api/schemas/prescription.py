@@ -5,8 +5,10 @@ from datetime import datetime
 class Prescription(BaseModel):
     id: Optional[int]
     patient_id: int
-    medication_id: int
     date_prescribed: datetime
+    name: str
+    compound_id: Optional[int]
+    price: Optional[float]
     quantity: int
     refills_left: int
     refills_interval: int
@@ -14,3 +16,5 @@ class Prescription(BaseModel):
 
     class Config:
         orm_mode = True
+        
+

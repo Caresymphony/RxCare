@@ -4,12 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from api.crud import patient as pt
-from api.crud import medication as md
 from api.crud import prescription as pr
 from api.models import database
-from api.schemas import patient, medication, prescription
+from api.schemas import patient, prescription
 from api.models.database import SessionLocal, engine
 from prometheus_client import Counter, Histogram, Info
+from typing import List
 import json
 import time
 database.Base.metadata.create_all(bind=engine)
@@ -56,16 +56,6 @@ def get_patients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 def create_patient(patient: patient.Patients, db: Session = Depends(get_db)):
     return pt.create_patient(db=db, patient=patient)
 
-@app.get("/v1/medications", response_model=medication.Medication)
-def get_medications(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    medication= md.get_medications(db, skip=skip, limit=limit)
-    print(f"Found {len(medication)} patients")
-    medication_json = jsonable_encoder(medication)
-    return JSONResponse(content=medication_json)
-
-@app.post("/v1/create_medication", response_model=medication.Medication)
-def create_medication(medication: medication.Medication, db: Session = Depends(get_db)):
-    return md.create_medication(db=db, medication=medication)
 
 @app.get("/v1/prescriptions", response_model=prescription.Prescription)
 def get_prescriptions(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -78,6 +68,12 @@ def get_prescriptions(skip: int = 0, limit: int = 100, db: Session = Depends(get
 def create_prescription(prescription: prescription.Prescription, db: Session = Depends(get_db)):
     return pr.create_prescription(db=db, prescription=prescription)
 
+@app.get("/v1/get_prescriptions/{patient_id}", response_model=List[prescription.Prescription])
+def get_prescriptions_by_patient(patient_id: int, db: Session = Depends(get_db)):
+    db_prescriptions = pr.get_prescriptions_by_patient(db, patient_id=patient_id)
+    if not db_prescriptions:
+        raise HTTPException(status_code=404, detail="No prescriptions found for the patient")
+    return db_prescriptions
 
 # Update Prometheus metrics
 def update_metrics(request, response, time):

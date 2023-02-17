@@ -2,13 +2,14 @@
 
 import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import PatientDetails from "../../components/PatientDetails";
 import axios from "axios";
 
 const Team = () => {
@@ -16,6 +17,19 @@ const Team = () => {
   const colors = tokens(theme.palette.mode);
   const [patientData, setpatientData] = useState([]);
   const navigate = useNavigate();
+  const handleRowClick = (params, event) => {
+    // Get the ID of the clicked row
+    const patientId = params.row.id;
+    const patientFName = params.row.first_name;
+    // Navigate to the new page with the patient ID in the URL
+    console.log(
+      `Navigating to next page with patientId=${patientId} and patientFName=${patientFName}`
+    );
+
+    navigate(`/team/${patientId}`, {
+      state: { patientName: patientFName },
+    });
+  };
   useEffect(() => {
     axios
       .get("http://localhost:8000/v1/patients")
@@ -43,63 +57,49 @@ const Team = () => {
     { field: "email", headerName: "Email", width: 200 },
     { field: "language_preference", headerName: "Language", width: 130 },
     { field: "species", headerName: "Species", width: 130 },
-    {
-      field: "viewed_notice_of_privacy_practices",
-      headerName: "Viewed Notice of Privacy Practices",
-      width: 250,
-    },
-    {
-      field: "viewed_notice_of_privacy_practices_date",
-      headerName: "Viewed Notice of Privacy Practices Date",
-      width: 300,
-    },
   ];
-  const handleRowClick = (params, event) => {
-    // Get the ID of the clicked row
-    const patientId = params.row.id;
-
-    // Navigate to the new page with the patient ID in the URL
-    navigate(`/patients/${patientId}`);
-  };
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}>
-        <DataGrid
-          checkboxSelection
-          rows={patientData}
-          columns={columns}
-          components={{ Toolbar: GridToolbar }}
-          onRowClick={handleRowClick}
-        />
-      </Box>
+      element=
+      {
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+          }}>
+          <DataGrid
+            checkboxSelection
+            rows={patientData}
+            columns={columns}
+            components={{ Toolbar: GridToolbar }}
+            onRowClick={handleRowClick}
+          />
+        </Box>
+      }
     </Box>
   );
 };
