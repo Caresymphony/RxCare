@@ -2,7 +2,7 @@
 
 import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
@@ -15,7 +15,7 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [patientData, setpatientData] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:8000/v1/patients")
@@ -59,7 +59,7 @@ const Team = () => {
     const patientId = params.row.id;
 
     // Navigate to the new page with the patient ID in the URL
-    history.push(`/patients/${patientId}`);
+    navigate(`/patients/${patientId}`);
   };
   return (
     <Box m="20px">

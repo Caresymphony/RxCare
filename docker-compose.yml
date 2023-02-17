@@ -15,7 +15,7 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   app:
     build: ./app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    command: uvicorn care:app --host 0.0.0.0 --port 8000
     volumes:
       - ./app/.:/app
     ports:
