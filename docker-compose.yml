@@ -22,14 +22,16 @@ services:
       - "8000:8000"
     depends_on:
       - db
-  web:
-    build: ./web
-    ports:
-      - "3000:3000"
-    environment:
-      REACT_APP_API_URL: http://app:8000
-    depends_on:
-      - app
+  # web:
+  #   build: ./web
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     REACT_APP_API_URL: http://app:8000
+  #   depends_on:
+  #     - app
+  #   volumes:
+  #     - ./web/.:/app
   prometheus:
     image: "prom/prometheus"
     ports:

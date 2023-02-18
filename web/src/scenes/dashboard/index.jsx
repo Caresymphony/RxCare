@@ -1,5 +1,6 @@
 /** @format */
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 import { tokens } from "../../theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,10 +11,24 @@ import MedicationIcon from "@mui/icons-material/Medication";
 import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
 import LineChart from "../../components/LineChart";
+import axios from "axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [allprescriptions, setallprescriptions] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://192.168.4.21:8000/v1/prescriptions")
+      .then((response) => {
+        setallprescriptions(response.data);
+        const totalPrescriptions = response.data.length;
+        console.log("Total prescriptions:", totalPrescriptions);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Box m="20px">
@@ -48,9 +63,9 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center">
           <StatBox
-            title="Demo"
+            title={allprescriptions.length}
             subtitle="Prescriptions Filled"
-            progress="0.75"
+            progress="0.9"
             increase="+14%"
             icon={
               <MedicationIcon
@@ -149,6 +164,55 @@ const Dashboard = () => {
           <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
           </Box>
+        </Box>
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          overflow="auto">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px">
+            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Recent Transactions
+            </Typography>
+          </Box>
+          {allprescriptions.map((allprescription) => (
+            <Box
+              key={allprescription.id}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px">
+              <Box>
+                <Typography
+                  color={colors.greenAccent[500]}
+                  variant="h5"
+                  fontWeight="600">
+                  {allprescription.patient_id}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  {allprescription.name}
+                </Typography>
+              </Box>
+              {
+                <Box color={colors.grey[100]}>
+                  {allprescription.date_prescribed}
+                </Box>
+              }
+              <Box
+                backgroundColor={colors.greenAccent[500]}
+                p="5px 10px"
+                borderRadius="4px">
+                ${allprescription.price}
+              </Box>
+            </Box>
+          ))}
         </Box>
       </Box>
     </Box>

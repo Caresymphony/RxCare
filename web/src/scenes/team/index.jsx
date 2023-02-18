@@ -32,7 +32,7 @@ const Team = () => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:8000/v1/patients")
+      .get("http://192.168.4.21:8000/v1/patients")
       .then((response) => {
         setpatientData(response.data);
       })
@@ -60,8 +60,7 @@ const Team = () => {
   ];
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
-      element=
+      <Header title="PATIENTS" subtitle="Managing the Patients" />
       {
         <Box
           m="40px 0 0 0"
