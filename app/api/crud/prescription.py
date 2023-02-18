@@ -25,4 +25,5 @@ def get_prescriptions(db: Session, skip: int = 0, limit: int = 100):
 
 def get_prescriptions_by_patient(db: Session, patient_id: int, skip: int = 0, limit: int = 100):
     return db.query(prescription_model.Prescription).filter(prescription_model.Prescription.patient_id == patient_id).offset(skip).limit(limit).all()
+    
 
