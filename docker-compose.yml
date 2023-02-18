@@ -22,6 +22,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  aiml:
+    build: ./aiml
+    command: uvicorn aiml:app --host 0.0.0.0 --port 2323
+    volumes:
+      - ./aiml.:/app
+    ports:
+      - "2323:2323"
+    depends_on:
+      - app
   # web:
   #   build: ./web
   #   ports:

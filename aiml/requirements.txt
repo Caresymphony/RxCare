@@ -1,0 +1,9 @@
+fastapi
+psycopg2-binary
+sqlalchemy
+joblib
+pandas
+prometheus_client
+prometheus_fastapi_instrumentator
+requests
+scikit-learn
