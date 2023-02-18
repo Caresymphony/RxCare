@@ -16,14 +16,42 @@ import axios from "axios";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [allPatients, setAllPatients] = useState([]);
   const [allprescriptions, setallprescriptions] = useState([]);
+  const [medprediction, setmedprediction] = useState([]);
+  const [totalprice, settotalprice] = useState([]);
+  const [totalPatients, setTotalPatients] = useState(0);
+
   useEffect(() => {
+    // Fetch the list of patients
+    axios
+      .get("http://192.168.4.21:8000/v1/patients")
+      .then((response) => {
+        setAllPatients(response.data);
+        const numPatients = response.data.length;
+        setTotalPatients(numPatients);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axios
       .get("http://192.168.4.21:8000/v1/prescriptions")
       .then((response) => {
         setallprescriptions(response.data);
-        const totalPrescriptions = response.data.length;
-        console.log("Total prescriptions:", totalPrescriptions);
+        const totalPrice = response.data.reduce(
+          (acc, prescription) => acc + prescription.price,
+          0
+        );
+        settotalprice(totalPrice);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get("http://192.168.4.21:2323/fetch-data")
+      .then((response) => {
+        setmedprediction(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +85,7 @@ const Dashboard = () => {
         gap="20px">
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -75,13 +103,13 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center">
           <StatBox
-            title="431,225"
+            title={"$" + totalprice}
             subtitle="Sales Obtained"
             progress="0.50"
             increase="+21%"
@@ -93,14 +121,14 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center">
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={totalPatients}
+            subtitle="All Patients"
             progress="0.30"
             increase="+5%"
             icon={
@@ -110,27 +138,9 @@ const Dashboard = () => {
             }
           />
         </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center">
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}>
           <Box
@@ -150,7 +160,7 @@ const Dashboard = () => {
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}>
-                $59,342.32
+                {"$" + totalprice}
               </Typography>
             </Box>
             <Box>
@@ -221,7 +231,7 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px">
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Medication Prediction
           </Typography>
           <Box
             display="flex"
@@ -232,9 +242,15 @@ const Dashboard = () => {
               variant="h5"
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}>
-              $48,352 revenue generated
+              {medprediction.medication_with_max_sale_prediction}
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            <Typography>
+              We calculated the total quantity and number of aspirin sold for
+              each medication in the response data, and then calculates the sale
+              prediction for each medication by dividing the total quantity by
+              the number of aspirin sold. Finally, it returns the name of the
+              medication with the highest sale prediction.
+            </Typography>
           </Box>
         </Box>
       </Box>

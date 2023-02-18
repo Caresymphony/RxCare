@@ -107,7 +107,7 @@ const Sidebar = () => {
                   John Doe
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  Pharmacy Manager
                 </Typography>
               </Box>
             </Box>
@@ -129,7 +129,7 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Manage Team"
+              title="Manage Patients"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
