@@ -1,22 +1,35 @@
 #!/bin/bash
 
+# Array of common first names
+first_names=("Emma" "Olivia" "Ava" "Isabella" "Sophia" "Mia" "Charlotte" "Amelia" "Evelyn" "Abigail" "Harper" "Emily" "Elizabeth" "Avery" "Sofia" "Ella" "Madison" "Scarlett" "Victoria" "Aria")
+
+# Array of common last names
+last_names=("Smith" "Johnson" "Williams" "Brown" "Jones" "Miller" "Davis" "Garcia" "Rodriguez" "Martinez" "Hernandez" "Lopez" "Gonzalez" "Perez" "Taylor" "Anderson" "Wilson" "Jackson" "White" "Harris")
+
+# Array of common street names
+streets=("Oak" "Pine" "Maple" "Cedar" "Elm" "Spruce" "Holly" "Willow" "Birch" "Cherry" "Ash" "Beech" "Chestnut" "Hickory" "Magnolia" "Mulberry" "Poplar" "Sycamore" "Walnut" "Yew")
+
+# Array of common city names
+cities=("New York" "Los Angeles" "Chicago" "Houston" "Phoenix" "Philadelphia" "San Antonio" "San Diego" "Dallas" "San Jose" "Austin" "Jacksonville" "Fort Worth" "Columbus" "San Francisco" "Charlotte" "Indianapolis" "Seattle" "Denver" "Washington")
+
 for i in {1..10}; do
   # Generate random data for the patient
-  first_name=$(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w 10 | head -n 1)
-  last_name=$(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w 10 | head -n 1)
-  guardian=$(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w 10 | head -n 1)
+  first_name=${first_names[$RANDOM % ${#first_names[@]}]}
+  last_name=${last_names[$RANDOM % ${#last_names[@]}]}
+  guardian=$(cat /dev/urandom | LC_CTYPE=C tr -dc '[:alpha:]' | fold -w 10 | head -n 1)
   gender=$(shuf -e "male" "female" -n 1)
-  dob=$(date +"%Y%m%d" -d "$((RANDOM % 365)) days ago")
-  street1=$(cat /dev/urandom | tr -dc '[:alnum:] ' | fold -w 20 | head -n 1)
-  street2=$(cat /dev/urandom | tr -dc '[:alnum:] ' | fold -w 20 | head -n 1)
-  city=$(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w 10 | head -n 1)
-  state=$(cat /dev/urandom | tr -dc '[:upper:]' | fold -w 2 | head -n 1)
+  dob=$(date +%F -d "$((RANDOM % 365)) days ago")
+  street1_number=$(shuf -i 100-999 -n 1)
+  street1_name=${streets[$RANDOM % ${#streets[@]}]}
+  street2_number=$(shuf -i 100-999 -n 1)
+  street2_name=${streets[$RANDOM % ${#streets[@]}]}
+  city=${cities[$RANDOM % ${#cities[@]}]}
+  state=$(cat /dev/urandom | LC_CTYPE=C tr -dc '[:upper:]' | fold -w 2 | head -n 1)
   country="US"
   zip=$(shuf -i 10000-99999 -n 1)
   phone=$(shuf -i 1000000000-9999999999 -n 1)
-  email=$(cat /dev/urandom | tr -dc '[:lower:]' | fold -w 10 | head -n 1)@$(cat /dev/urandom | tr -dc '[:lower:]' | fold -w 5 | head -n 1).com
+  email=$(cat /dev/urandom | LC_CTYPE=C tr -dc '[:lower:]' | fold -w 10 | head -n 1)@$(cat /dev/urandom | LC_CTYPE=C tr -dc '[:lower:]' | fold -w 5 | head -n 1).com
   language_preference=$(shuf -e "English" "Spanish" "French" -n 1)
-  species=$(shuf -e "Dog" "Cat" "Bird" "Fish" -n 1)
 
   # Call the /v1/create_patient endpoint with the random data
   curl -X POST \

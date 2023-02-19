@@ -116,7 +116,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -157,14 +157,14 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
+              title="Patient Form"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              title="Pharmacist Calendar"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
@@ -182,35 +182,34 @@ const Sidebar = () => {
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}>
-              Charts
+              Products
             </Typography>
             <Item
-              title="Bar Chart"
-              to="/bar"
+              title="Lab 360"
+              to="http://20.66.28.107:8050/"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+              target="_blank"
+              rel="noopener noreferrer"
             />
             <Item
-              title="Pie Chart"
-              to="/pie"
+              title="Medication Compound"
+              to="http://20.66.28.107:8070/"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+              target="_blank"
+              rel="noopener noreferrer"
             />
             <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
+              title="Observability"
+              to="http://localhost:2000/"
+              icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
+              target="_blank"
+              rel="noopener noreferrer"
             />
           </Box>
         </Menu>

@@ -13,7 +13,8 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "./Header";
-import video from "../vids/PHT.webm";
+import videolosartan from "../vids/PHT.webm";
+import videometformin from "../vids/Metformin.webm";
 import { useParams, useLocation, Link } from "react-router-dom";
 const PatientDetails = (params) => {
   const theme = useTheme();
@@ -153,7 +154,12 @@ const PatientDetails = (params) => {
               <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
                 Welcome to the Walgreens AI Pharmacist!
               </Typography>
-              <video src={video} width="300" height="250" controls />
+              {patientName === "Thomas" && (
+                <video src={videolosartan} width="300" height="250" controls />
+              )}
+              {patientName === "Matt" && (
+                <video src={videometformin} width="300" height="250" controls />
+              )}
             </Box>
           </Modal>
           <DataGrid

@@ -245,11 +245,11 @@ const Dashboard = () => {
               {medprediction.medication_with_max_sale_prediction}
             </Typography>
             <Typography>
-              We calculated the total quantity and number of aspirin sold for
-              each medication in the response data, and then calculates the sale
-              prediction for each medication by dividing the total quantity by
-              the number of aspirin sold. Finally, it returns the name of the
-              medication with the highest sale prediction.
+              We calculated the total quantity and number of a medication sold
+              for each medication in the response data, and then calculates the
+              sale prediction for each medication by dividing the total quantity
+              by the number of medication sold. Finally, it returns the name of
+              the medication with the highest sale prediction.
             </Typography>
           </Box>
         </Box>
