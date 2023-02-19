@@ -34,3 +34,16 @@
 <hr>
 <h4>Login Page: </h5>
 <img src="./assets/ui-github-screenshots/login.png"/></h4>
+<h4>Dashboard: </h5>
+<img src="./assets/ui-github-screenshots/dashboard.png"/></h4>
+<h4>Manage Patient: </h5>
+<img src="./assets/ui-github-screenshots/manage_patient.png"/></h4>
+
+<h3>Thigns To Do:</h3>
+<hr>
+1. Cleanup needed
+2. Write User model to database
+3. Work on entire RBAC.
+4. Component organization
+5. API Security
+6. Enhance Logging
