@@ -32,4 +32,5 @@
 
 <h3>Screenshots</h3>
 <hr>
-<h3>Login Page: <img src="./assets/rxcare-logo.png"/></h3>
+<h4>Login Page: </h5>
+<img src="./assets/ui-github-screenshots/login.png"/></h4>
