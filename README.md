@@ -38,12 +38,18 @@
 <img src="./assets/ui-github-screenshots/dashboard.png"/></h4>
 <h4>Manage Patient: </h4>
 <img src="./assets/ui-github-screenshots/manage_patient.png"/></h4>
-<h4>Get Patient Details: </h4>
+<h4>Patient Details: </h4>
 <img src="./assets/ui-github-screenshots/user360.png"/></h4>
 <p>The link will take you to a drug database when you click the compound_id link</p>
+<h4>AI Virtual Assistant</h4>
 <img src="./assets/ui-github-screenshots/aivassistant.png"/></h4>
 <p>When you click Virtual AI Pharmacist. A virtual pharmacist will guide you with the medication or medication instructions.</p>
-<h3>Thigns To Do:</h3>
+<h4>Calendar: </h4>
+<img src="./assets/ui-github-screenshots/calendar.png"/></h4>
+<p>The Calendar for Pharmacist managers and workers</p>
+<h4>FAQ: </h4>
+<img src="./assets/ui-github-screenshots/faq.png"/></h4>
+<h3>Things To Do:</h3>
 <hr>
 1. Cleanup needed  
 2. Write User model to database  
