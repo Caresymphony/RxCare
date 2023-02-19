@@ -7,7 +7,7 @@
 </p>
 <h1 align="center"> Retail Pharmacy Store Management System</h1>
 
-<p align="center"><i>Your central point for managing personal data <br> (if current modules allow to do that).</i></p>
+<p align="center"><i>🏥 RxCare is a pharmacy management platform designed to provide store owners with an efficient and effective way to manage their pharmacy business.</p>
 
 <h3>Documentation / Demo</h3>
 <hr>
