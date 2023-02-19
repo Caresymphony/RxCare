@@ -51,9 +51,9 @@
 <img src="./assets/ui-github-screenshots/faq.png"/></h4>
 <h3>Things To Do:</h3>
 <hr>
-1. Cleanup needed  
-2. Write User model to database  
-3. Work on entire RBAC.  
-4. Component organization  
-5. API Security  
-6. Enhance Logging
+<h5>1. Cleanup needed </h5>
+<h5>2. Write User model to database </h5>
+<h5>3. Work on entire RBAC. </h5>
+<h5>4. Component organization </h5>
+<h5>5. API Security </h5>
+<h5>6. Enhance Logging </h5>
